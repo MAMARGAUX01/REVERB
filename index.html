@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REVERB - Where the music echoes louder together</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    :root {
+        --primary-electric: #FF2D55;
+        --secondary-purple: #8B5CF6;
+        --accent-orange: #FF6B35;
+        --dark-bg: #0A0A0F;
+        --mid-dark: #1A1A24;
+        --text-light: #FFFFFF;
+        --text-gray: #B4B4C8;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: var(--dark-bg);
+        color: var(--text-light);
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    /* Hero Section with animated background */
+    .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--dark-bg) 0%, var(--mid-dark) 100%);
+    }
+
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .sound-wave {
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        opacity: 0.1;
+    }
+
+    .wave-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-electric), transparent);
+        animation: waveMove 8s ease-in-out infinite;
+    }
+
+    .wave-line:nth-child(1) { top: 20%; animation-delay: 0s; }
+    .wave-line:nth-child(2) { top: 40%; animation-delay: 2s; }
+    .wave-line:nth-child(3) { top: 60%; animation-delay: 4s; }
+    .wave-line:nth-child(4) { top: 80%; animation-delay: 6s; }
+
+    @keyframes waveMove {
+        0%, 100% { transform: translateX(-50%) scaleY(1); }
+        50% { transform: translateX(0%) scaleY(1.5); }
+    }
+
+    .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--primary-electric);
+        border-radius: 50%;
+        animation: float 15s infinite;
+        opacity: 0.6;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); opacity: 0; }
+        10% { opacity: 0.6; }
+        90% { opacity: 0.6; }
+        100% { transform: translate(100vw, -100vh); opacity: 0; }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 20px;
+        max-width: 1200px;
+    }
+
+    .logo {
+        font-size: clamp(3rem, 10vw, 8rem);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, var(--primary-electric), var(--secondary-purple), var(--accent-orange));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+        0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 45, 85, 0.5)); }
+        50% { filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.8)); }
+    }
+
+    .tagline {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        color: var(--text-gray);
+        margin-bottom: 3rem;
+        font-weight: 300;
+        animation: fadeInUp 1s ease-out 0.5s both;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 18px 45px;
+        background: linear-gradient(135deg, var(--primary-electric), var(--accent-orange));
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(255, 45, 85, 0.3);
+        animation: fadeInUp 1s ease-out 1s both;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 45, 85, 0.5);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator::before {
+        content: '↓';
+        font-size: 2rem;
+        color: var(--text-gray);
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+        40% { transform: translateX(-50%) translateY(-10px); }
+        60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* Section Styling */
+    section {
+        padding: 100px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .section-title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--primary-electric), var(--secondary-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .section-subtitle {
+        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        color: var(--text-gray);
+        margin-bottom: 3rem;
+        max-width: 800px;
+    }
+
+    /* Brand Essence Section */
+    .essence-section {
+        background: linear-gradient(135deg, var(--mid-dark) 0%, var(--dark-bg) 100%);
+        border-radius: 30px;
+        padding: 80px 40px;
+        margin: 50px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .essence-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 45, 85, 0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .essence-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .essence-quote {
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        font-style: italic;
+        line-height: 1.6;
+        color: var(--text-light);
+        margin-bottom: 3rem;
+        padding: 30px;
+        border-left: 4px solid var(--primary-electric);
+        background: rgba(255, 45, 85, 0.05);
+        border-radius: 10px;
+    }
+
+    .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .pillar-card {
+        background: rgba(26, 26, 36, 0.6);
+        padding: 40px 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 45, 85, 0.2);
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .pillar-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-electric);
+        box-shadow: 0 20px 60px rgba(255, 45, 85, 0.3);
+    }
+
+    .pillar-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .pillar-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-electric);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .pillar-text {
+        color: var(--text-gray);
+        line-height: 1.7;
+    }
+
+    /* Personality Section */
+    .personality-section {
+        text-align: center;
+        padding: 100px 20px;
+    }
+
+    .personality-traits {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin: 60px 0;
+        flex-wrap: wrap;
+    }
+
+    .trait {
+        position: relative;
+    }
+
+    .trait-word {
+        font-size: clamp(3rem, 7vw, 5rem);
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--primary-electric), var(--accent-orange));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        letter-spacing: -0.03em;
+        position: relative;
+        display: inline-block;
+        animation: traitPulse 4s ease-in-out infinite;
+    }
+
+    .trait:nth-child(2) .trait-word {
+        background: linear-gradient(135deg, var(--secondary-purple), var(--primary-electric));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation-delay: 2s;
+    }
+
+    @keyframes traitPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .ampersand {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: var(--text-gray);
+        font-weight: 300;
+    }
+
+    .personality-explanation {
+        max-width: 900px;
+        margin: 50px auto;
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        color: var(--text-gray);
+        line-height: 1.8;
+        padding: 40px;
+        background: rgba(26, 26, 36, 0.4);
+        border-radius: 20px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    /* Features Section */
+    .features-section {
+        background: var(--mid-dark);
+        padding: 100px 20px;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 50px;
+        margin-top: 60px;
+    }
+
+    .feature-card {
+        background: var(--dark-bg);
+        border-radius: 25px;
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+        transition: all 0.4s ease;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-electric), var(--secondary-purple));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover::before {
+        opacity: 0.1;
+    }
+
+    .feature-card:hover {
+        border-color: var(--primary-electric);
+        transform: scale(1.03);
+    }
+
+    .feature-number {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 5rem;
+        font-weight: 900;
+        color: rgba(255, 45, 85, 0.1);
+        line-height: 1;
+    }
+
+    .feature-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 15px;
+    }
+
+    .feature-type {
+        display: inline-block;
+        padding: 8px 20px;
+        background: linear-gradient(135deg, var(--primary-electric), var(--accent-orange));
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+    }
+
+    .feature-description {
+        color: var(--text-gray);
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+    }
+
+    .feature-proof {
+        padding: 20px;
+        background: rgba(139, 92, 246, 0.1);
+        border-radius: 12px;
+        border-left: 3px solid var(--secondary-purple);
+        margin-top: 25px;
+    }
+
+    .feature-proof-title {
+        font-weight: 700;
+        color: var(--secondary-purple);
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .feature-proof-text {
+        color: var(--text-gray);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+        background: var(--dark-bg);
+        padding: 60px 20px 30px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 45, 85, 0.1);
+    }
+
+    .footer-logo {
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--primary-electric), var(--secondary-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+    }
+
+    .footer-tagline {
+        color: var(--text-gray);
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+    }
+
+    .footer-text {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        section {
+            padding: 60px 15px;
+        }
+
+        .essence-section {
+            padding: 50px 25px;
+            margin: 30px 10px;
+        }
+
+        .pillars-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .personality-traits {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+        }
+    }
+
+    /* Smooth scroll */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Animation on scroll */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+```
+
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="sound-wave">
+                <div class="wave-line"></div>
+                <div class="wave-line"></div>
+                <div class="wave-line"></div>
+                <div class="wave-line"></div>
+            </div>
+            <div class="particles" id="particles"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="logo">REVERB</h1>
+            <p class="tagline">Where the music echoes louder together</p>
+            <a href="#essence" class="cta-button">Découvrir la nouvelle identité</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+```
+<!-- Brand Essence Section -->
+<section id="essence" class="essence-section fade-in">
+    <div class="essence-content">
+        <h2 class="section-title">L'Essence de Marque</h2>
+        <div class="essence-quote">
+            « Transforme chaque moment musical en une expérience collective vibrante qui te connecte à l'énergie brute du live et à une communauté qui ressent la musique aussi intensément que toi. »
+        </div>
+        
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">⚡</div>
+                <h3 class="pillar-title">L'Intensité du Live</h3>
+                <p class="pillar-text">
+                    REVERB ne propose pas de la musique en fond sonore, mais capte l'adrénaline, l'authenticité et la puissance émotionnelle d'un concert. Chaque écoute doit faire ressentir cette énergie électrique du moment présent, même à travers un casque.
+                </p>
+            </div>
+            
+            <div class="pillar-card">
+                <div class="pillar-icon">🤝</div>
+                <h3 class="pillar-title">L'Appartenance Communautaire</h3>
+                <p class="pillar-text">
+                    La musique n'est plus une expérience solitaire mais un langage commun qui crée des liens. REVERB permet aux fans de se retrouver, de partager leurs découvertes, d'échanger sur les événements locaux et de se sentir partie prenante d'une scène musicale vivante et locale.
+                </p>
+            </div>
+            
+            <div class="pillar-card">
+                <div class="pillar-icon">🔊</div>
+                <h3 class="pillar-title">L'Amplification par le Collectif</h3>
+                <p class="pillar-text">
+                    Comme la réverbération amplifie le son, la communauté amplifie l'expérience musicale. Chaque interaction, chaque partage, chaque recommandation fait « résonner » la musique plus fort et crée un effet d'entraînement qui dépasse l'individu.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Personality Section -->
+<section class="personality-section fade-in">
+    <h2 class="section-title">Personnalité de Marque</h2>
+    <p class="section-subtitle">Qui sommes-nous vraiment ?</p>
+    
+    <div class="personality-traits">
+        <div class="trait">
+            <span class="trait-word">ÉLECTRIQUE</span>
+        </div>
+        <span class="ampersand">&</span>
+        <div class="trait">
+            <span class="trait-word">INCLUSIF</span>
+        </div>
+    </div>
+    
+    <div class="personality-explanation">
+        REVERB doit incarner l'énergie brute et imprévisible d'un concert live (électrique) tout en créant un espace chaleureux où chaque fan, quel que soit son niveau de connaissance musicale, se sent légitime et accueilli dans la communauté (inclusif). Cette dualité reflète à la fois l'intensité de la musique live et l'ouverture d'une scène locale accessible à tous.
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section fade-in">
+    <h2 class="section-title">Nos Fonctionnalités Clés</h2>
+    <p class="section-subtitle">Des actions concrètes pour prouver notre engagement envers le live et la scène locale</p>
+    
+    <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+            <div class="feature-number">01</div>
+            <div class="feature-content">
+                <h3 class="feature-title">Local Live Map</h3>
+                <span class="feature-type">Fonctionnalité Produit</span>
+                <p class="feature-description">
+                    Intégration native d'une carte géolocalisée qui affiche en temps réel tous les concerts, showcases, open mics et événements musicaux dans un rayon personnalisable autour de l'utilisateur. Chaque événement est lié aux artistes présents sur la plateforme, permettant de découvrir leur musique avant le concert, d'acheter des billets directement via l'app, et de voir quels membres de la communauté REVERB y assistent. Les utilisateurs peuvent créer des « crews » (groupes d'amis) pour planifier ensemble leurs sorties live.
+                </p>
+                <div class="feature-proof">
+                    <div class="feature-proof-title">Preuve de crédibilité</div>
+                    <p class="feature-proof-text">
+                        Cette fonctionnalité transforme REVERB d'un simple lecteur audio en véritable hub de la scène locale, démontrant concrètement l'engagement envers le live et le local.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+            <div class="feature-number">02</div>
+            <div class="feature-content">
+                <h3 class="feature-title">Artist Direct</h3>
+                <span class="feature-type">Programme de Soutien</span>
+                <p class="feature-description">
+                    Lancement d'un programme où REVERB enregistre et diffuse en exclusivité des sessions live intimistes d'artistes émergents locaux (captées dans des lieux iconiques de chaque ville : toits, caves, studios locaux). 10% des revenus d'abonnement sont redistribués directement aux artistes de la scène locale via un fonds de soutien dont les utilisateurs peuvent voter pour l'attribution. Création d'un badge « Local Supporter » visible sur les profils des utilisateurs qui écoutent et soutiennent activement les artistes de leur région.
+                </p>
+                <div class="feature-proof">
+                    <div class="feature-proof-title">Preuve de crédibilité</div>
+                    <p class="feature-proof-text">
+                        Cela démontre un engagement financier et éditorial réel envers les artistes locaux, rompant totalement avec l'image de « distributeur neutre » de l'ancien Rythmia.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+            <div class="feature-number">03</div>
+            <div class="feature-content">
+                <h3 class="feature-title">Echo Groups</h3>
+                <span class="feature-type">Communautés Thématiques</span>
+                <p class="feature-description">
+                    Création de micro-communautés basées sur les genres musicaux, les salles de concert ou les événements (ex : « Indie Rock Paris Est », « Jazz Lovers Lyon »). Après chaque concert répertorié sur REVERB, génération automatique d'une playlist collaborative où tous les participants peuvent ajouter leurs morceaux préférés joués durant la soirée, commenter leur ressenti à chaud, partager photos/vidéos et organiser le prochain rendez-vous. Système de « concert streaks » qui récompense les utilisateurs les plus actifs dans la vie musicale locale par des avantages exclusifs.
+                </p>
+                <div class="feature-proof">
+                    <div class="feature-proof-title">Preuve de crédibilité</div>
+                    <p class="feature-proof-text">
+                        Cette fonctionnalité sociale prouve que REVERB ne se contente pas de parler de communauté, mais crée les outils concrets pour que celle-ci existe, interagisse et se renforce autour d'expériences live partagées.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">REVERB</div>
+    <p class="footer-tagline">Where the music echoes louder together</p>
+    <p class="footer-text">© 2025 REVERB - Une nouvelle ère pour la musique live et la communauté locale</p>
+</footer>
+
+<script>
+    // Generate random particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particlesContainer.appendChild(particle);
+    }
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Smooth scroll for CTA button
+    document.querySelector('.cta-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('#essence').scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+```
+
+</body>
+</html>
